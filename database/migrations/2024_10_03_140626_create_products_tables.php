@@ -6,41 +6,34 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up()
+    public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
-            // this will create an id, a "published" column, and soft delete and timestamps columns
-            createDefaultTableFields($table);
-
-
-            // add those 2 columns to enable publication timeframe fields (you can use publish_start_date only if you don't need to provide the ability to specify an end date)
-            // $table->timestamp('publish_start_date')->nullable();
-            // $table->timestamp('publish_end_date')->nullable();
-
-            // this will create the required columns to support nesting for this module
-            $table->nestedSet();
-        });
-
-        Schema::create('product_translations', function (Blueprint $table) {
-            createDefaultTranslationsTableFields($table, 'product');
-            $table->string('title', 200)->nullable();
+            $table->id();
+            $table->string('name');
             $table->text('description')->nullable();
+            $table->decimal('price', 8, 2);
+            $table->integer('stock')->default(0);
+            $table->timestamps();
+        });
+        Schema::create('products', function (Blueprint $table) {
+            $table->id();
+            $table->string('type');
+            $table->string('color');
+            $table->string('size')->nullable();
+            $table->decimal('price', 8, 2);
+            $table->integer('stock')->default(0);
+            $table->json('images')->nullable();
+            $table->text('description')->nullable();
+            $table->timestamps();
         });
 
-        Schema::create('product_slugs', function (Blueprint $table) {
-            createDefaultSlugsTableFields($table, 'product');
-        });
 
-        Schema::create('product_revisions', function (Blueprint $table) {
-            createDefaultRevisionsTableFields($table, 'product');
-        });
+
     }
 
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists('product_revisions');
-        Schema::dropIfExists('product_translations');
-        Schema::dropIfExists('product_slugs');
-        Schema::dropIfExists('products');
+           Schema::dropIfExists('products');
     }
 };
