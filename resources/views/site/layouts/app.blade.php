@@ -16,7 +16,6 @@
         </ul>
     </nav>
 </header>
-
 <main>
     @yield('content')
 </main>
@@ -24,5 +23,6 @@
 <footer>
     <p>&copy; {{ date('Y') }} My Shop. All rights reserved.</p>
 </footer>
+<script src="{{ asset('js/products.js') }}"></script>
 </body>
 </html>
