@@ -24,14 +24,19 @@ class Product extends Model implements Sortable
         'description',
         'position',
     ];
-    
+
     public $translatedAttributes = [
         'title',
         'description',
     ];
-    
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
     public $slugAttributes = [
         'title',
     ];
-    
+
 }

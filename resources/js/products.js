@@ -1,4 +1,11 @@
-axios.get('/api/products')
+axios.get('/api/products', {
+    params: {
+        category_id: 1,
+        min_price: 100,
+        max_price: 500,
+        in_stock: true
+    }
+})
     .then(response => {
         console.log(response.data);
     })
