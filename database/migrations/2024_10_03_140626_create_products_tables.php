@@ -6,34 +6,29 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up(): void
+    public function up()
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->decimal('price', 8, 2);
-            $table->integer('stock')->default(0);
+            $table->string('type')->nullable();
+            $table->string('color')->nullable();
+            $table->json('sizes')->nullable(); // Хранение размеров в JSON формате
+            $table->decimal('price', 10, 2);
+            $table->boolean('availability')->default(true);
+            $table->json('images')->nullable(); // Хранение ссылок на изображения в JSON формате
             $table->timestamps();
         });
-        Schema::create('products', function (Blueprint $table) {
-            $table->id();
-            $table->string('type');
-            $table->string('color');
-            $table->string('size')->nullable();
-            $table->decimal('price', 8, 2);
-            $table->integer('stock')->default(0);
-            $table->json('images')->nullable();
-            $table->text('description')->nullable();
-            $table->timestamps();
-        });
-
-
-
     }
 
-    public function down(): void
+
+
+    public function down()
     {
-           Schema::dropIfExists('products');
+        Schema::dropIfExists('product_revisions');
+        Schema::dropIfExists('product_translations');
+        Schema::dropIfExists('product_slugs');
+        Schema::dropIfExists('products');
     }
 };
