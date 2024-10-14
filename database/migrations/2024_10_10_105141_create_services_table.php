@@ -9,22 +9,17 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    { Schema::create('services', function (Blueprint $table) {
-        $table->id();
-        $table->string('name');
-        $table->text('description')->nullable();
-        $table->decimal('price', 8, 2);
-        $table->timestamps();
-    });
+    public function up()
+    {
         Schema::create('services', function (Blueprint $table) {
-            $table->id();
-            $table->string('type');
-            $table->decimal('price', 8, 2);
-            $table->string('duration');
-            $table->timestamps();
+            $table->id(); // Уникальный идентификатор услуги
+            $table->string('name'); // Название услуги
+            $table->text('description')->nullable(); // Описание услуги
+            $table->decimal('price', 8, 2); // Цена услуги
+            $table->timestamps(); // Временные метки
         });
     }
+
 
     /**
      * Reverse the migrations.

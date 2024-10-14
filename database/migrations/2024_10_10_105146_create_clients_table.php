@@ -6,25 +6,18 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up(): void
-    {
-        Schema::create('clients', function (Blueprint $table) {
-            $table->id();
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('email')->unique();
-            $table->string('phone')->nullable();
-            $table->timestamps();
-        });
-        Schema::create('clients', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('phone')->nullable();
-            $table->text('address')->nullable();
-            $table->timestamps();
-        });
-    }
+
+   public function up()
+   {
+       Schema::create('clients', function (Blueprint $table) {
+           $table->id(); // Уникальный идентификатор клиента
+           $table->string('name'); // Имя клиента
+           $table->string('email')->unique(); // Email клиента (уникальный)
+           $table->string('phone')->nullable(); // Телефон клиента (опционально)
+           $table->timestamps(); // Временные метки
+       });
+   }
+
 
     public function down(): void
     {
