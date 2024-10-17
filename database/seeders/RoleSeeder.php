@@ -15,9 +15,10 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
 
-        $adminRole = Role::create(['name' => 'admin']);
+        $adminRole = Role::firstOrCreate(['name' => 'admin']);
+        $developerRole = Role::firstOrCreate(['name' => 'developer']);
 
-        $permissions = [
+        $adminPermissions = [
             'manage_system',
             'manage_users',
             'manage_plugins',
@@ -29,11 +30,26 @@ class RoleSeeder extends Seeder
             'restore_data'
         ];
 
-        foreach ($permissions as $permission) {
-            Permission::create(['name' => $permission]);
+        $developerPermissions = [
+            'access_server_settings',
+            'manage_system_code',
+            'create_modules',
+            'create_themes',
+            'install_themes',
+            'manage_plugins',
+            'view_logs',
+        ];
+
+        foreach ($adminPermissions as $permission) {
+            Permission::firstOrCreate(['name' => $permission]);
         }
 
-        $adminRole->syncPermissions($permissions);
-    }
+        $adminRole->syncPermissions($adminPermissions);
 
+        foreach ($developerPermissions as $permission) {
+            Permission::firstOrCreate(['name' => $permission]);
+        }
+
+        $developerRole->syncPermissions($developerPermissions);
+    }
 }
